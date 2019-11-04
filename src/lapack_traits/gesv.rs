@@ -3,7 +3,7 @@ use lapacke::{Layout, sgesv, dgesv, cgesv, zgesv};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait Tgesv{
+pub trait Tgesv : Sized{
     fn gesv(layout: Layout,
             n: i32,
             nrhs: i32,
