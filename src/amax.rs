@@ -11,7 +11,7 @@ macro_rules! impl_itamax(
     ($N: ty, $itamax: path) => (
         impl ITamax for $N{
             fn amax(n: i32, x: &[Self], incx: i32) -> i32{
-                $itamax(n, x, incx)
+                unsafe{ $itamax(n, x, incx) }
             }
         }
     )

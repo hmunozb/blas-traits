@@ -11,7 +11,8 @@ macro_rules! impl_rtasum (
     ($N: ty, $rtasum: path) => (
         impl RTasum for $N{
             fn asum(n: i32, x: &[Self], incx: i32) -> Self::RealField{
-                $rtasum(n, x, incx)
+
+                unsafe{ $rtasum(n, x, incx) }
             }
         }
     )

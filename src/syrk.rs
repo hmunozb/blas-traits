@@ -21,18 +21,23 @@ pub trait Tsyrk : ComplexField{
 macro_rules! impl_tsyrk{
     ($N: ty, $tsyrk: path) => (
         impl Tsyrk for $N{
-            fn syrk(    layout: Layout,
-                        uplo: Part,
-                        trans: Transpose,
-                        n: i32,
-                        k: i32,
-                        alpha: Self,
-                        a: &[Self],
-                        lda: i32,
-                        beta: Self,
-                        c: &mut [Self],
-                        ldc: i32){
-                $tsyrk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+            fn syrk(
+                layout: Layout,
+                uplo: Part,
+                trans: Transpose,
+                n: i32,
+                k: i32,
+                alpha: Self,
+                a: &[Self],
+                lda: i32,
+                beta: Self,
+                c: &mut [Self],
+                ldc: i32
+            )
+            {
+                unsafe{
+                     $tsyrk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+                }
             }
         }
     )
