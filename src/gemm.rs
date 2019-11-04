@@ -1,10 +1,10 @@
 use alga::general::ComplexField;
-use cblas::{Layout, Transpose, dgemm, sgemm, cgemm, zgemm};
+use cblas::{Layout, Transpose, sgemm, dgemm, cgemm, zgemm};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait Xgemm : ComplexField{
-    fn xgemm(
+pub trait Tgemm : ComplexField{
+    fn gemm(
         layout: Layout,
         transa: Transpose,
         transb: Transpose,
@@ -24,9 +24,9 @@ pub trait Xgemm : ComplexField{
 
 macro_rules! impl_xgemm {
     ($N: ty, $xgemm: path) => (
-        impl Xgemm for $N{
+        impl Tgemm for $N{
             #[inline]
-            fn xgemm(
+            fn gemm(
                 layout: Layout,
                 transa: Transpose,
                 transb: Transpose,
