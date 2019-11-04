@@ -22,8 +22,8 @@ pub trait Tgemm : ComplexField{
     );
 }
 
-macro_rules! impl_xgemm {
-    ($N: ty, $xgemm: path) => (
+macro_rules! impl_tgemm {
+    ($N: ty, $tgemm: path) => (
         impl Tgemm for $N{
             #[inline]
             fn gemm(
@@ -43,15 +43,15 @@ macro_rules! impl_xgemm {
                 ldc: i32,
             ){
                 unsafe{
-                    $xgemm(layout, transa, transb, m, n, k, alpha,
-                            a, lda, b, ldb, b, ldb, beta, c ,ldc);
+                    $tgemm(layout, transa, transb, m, n, k, alpha,
+                            a, lda, b, ldb, beta, c ,ldc);
                 }
             }
         }
     )
 }
 
-impl_xgemm!(f32, sgemm);
-impl_xgemm!(f64, dgemm);
-impl_xgemm!(c32, cgemm);
-impl_xgemm!(c64, zgemm);
+impl_tgemm!(f32, sgemm);
+impl_tgemm!(f64, dgemm);
+impl_tgemm!(c32, cgemm);
+impl_tgemm!(c64, zgemm);
