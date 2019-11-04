@@ -7,17 +7,17 @@ pub trait RTasum: ComplexField{
     fn asum(n: i32, x: &[Self], incx: i32) -> Self::RealField;
 }
 
-macro_rules! impl_xasum(
-    ($N: ty, $xasum: path) =>(
-        impl Xasum for $N{
+macro_rules! impl_rtasum (
+    ($N: ty, $rtasum: path) => (
+        impl RTasum for $N{
             fn asum(n: i32, x: &[Self], incx: i32) -> Self::RealField{
-                $xasum(n, x, incx)
+                $rtasum(n, x, incx)
             }
         }
     )
 );
 
-impl_xasum!(f32, sasum);
-impl_xasum!(f64, dasum);
-impl_xasum!(c32, scasum);
-impl_xasum!(c64, dzasum);
+impl_rtasum!(f32, sasum);
+impl_rtasum!(f64, dasum);
+impl_rtasum!(c32, scasum);
+impl_rtasum!(c64, dzasum);
