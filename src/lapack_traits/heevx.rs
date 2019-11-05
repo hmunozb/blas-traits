@@ -40,7 +40,7 @@ macro_rules! impl_he_evx (
                  m: &mut i32, w: &mut [Self::RealField], z: &mut [Self], ldz: i32,
                  work: &mut [Self], lwork: i32, rwork: &mut [Self::RealField],  //Not used for real-symmetric routines
                  iwork: &mut [i32], ifail: &mut [i32]) -> i32 {
-                    let mut info: i32 =
+                    let info: i32 =
                         unsafe {
                                 $heevx( Layout::RowMajor,
                                         jobz, range, uplo, n, a, lda,
@@ -67,7 +67,7 @@ macro_rules! impl_sy_evx (
                  m: &mut i32, w: &mut [Self::RealField], z: &mut [Self], ldz: i32,
                  work: &mut [Self], lwork: i32, _rwork: &mut [Self::RealField],  //Not used for real-symmetric routines
                  iwork: &mut [i32], ifail: &mut [i32]) -> i32 {
-                    let mut info: i32 =
+                    let info: i32 =
                         unsafe {
                                 $syevx( Layout::RowMajor,
                                         jobz, range, uplo, n, a, lda,

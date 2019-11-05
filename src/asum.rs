@@ -1,5 +1,5 @@
 use alga::general::ComplexField;
-use cblas::{Layout, Transpose, sasum, dasum, scasum, dzasum};
+use cblas::{sasum, dasum, scasum, dzasum};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
