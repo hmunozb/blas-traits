@@ -84,9 +84,9 @@ pub trait Tsyheevx : ComplexField
 
 macro_rules! impl_he_evx (
     ($N: ty, $heevx: path) => (
-        impl SyHeEvx for $N {
+        impl Tsyheevx for $N {
             #[inline]
-            fn syhe_evx(jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
+            fn syheevx(jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
                  vl: Self::RealField, vu: Self::RealField, il: i32, iu: i32,  abstol: Self::RealField,
                  m: &mut i32, w: &mut [Self::RealField], z: &mut [Self], ldz: i32,
                  work: &mut [Self], lwork: i32, rwork: &mut [Self::RealField],  //Not used for real-symmetric routines
@@ -111,9 +111,9 @@ macro_rules! impl_he_evx (
 
 macro_rules! impl_sy_evx (
     ($N: ty, $syevx: path) => (
-        impl SyHeEvx for $N {
+        impl Tsyheevx for $N {
             #[inline]
-            fn syhe_evx(jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
+            fn syheevx(jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
                  vl: Self::RealField, vu: Self::RealField, il: i32, iu: i32,  abstol: Self::RealField,
                  m: &mut i32, w: &mut [Self::RealField], z: &mut [Self], ldz: i32,
                  work: &mut [Self], lwork: i32, _rwork: &mut [Self::RealField],  //Not used for real-symmetric routines
