@@ -46,7 +46,7 @@ macro_rules! impl_he_evx (
                                         jobz, range, uplo, n, a, lda,
                                         vl, vu, il, iu, abstol,
                                         m, w, z, ldz,
-                                        work, lwork, rwork, iwork, ifail);
+                                        work, lwork, rwork, iwork, ifail)
                         };
                     info
             }
