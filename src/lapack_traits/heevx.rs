@@ -7,7 +7,8 @@ pub trait Tsyheevx : ComplexField
 {
     /// Symmetric/Hermitian eigenvalue problem
     /// Binds to syevx for real scalars and to heevx for complex scalars
-    fn syheevx( jobz: u8,
+    fn syheevx( layout: Layout,
+                jobz: u8,
                 range: u8,
                 uplo: u8,
                 n: i32,
@@ -35,14 +36,14 @@ macro_rules! impl_he_evx (
     ($N: ty, $heevx: path) => (
         impl Tsyheevx for $N {
             #[inline]
-            fn syheevx(jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
+            fn syheevx(layout: Layout, jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
                  vl: Self::RealField, vu: Self::RealField, il: i32, iu: i32,  abstol: Self::RealField,
                  m: &mut i32, w: &mut [Self::RealField], z: &mut [Self], ldz: i32,
                  work: &mut [Self], lwork: i32, rwork: &mut [Self::RealField],  //Not used for real-symmetric routines
                  iwork: &mut [i32], ifail: &mut [i32]) -> i32 {
                     let info: i32 =
                         unsafe {
-                                $heevx( Layout::RowMajor,
+                                $heevx( layout,
                                         jobz, range, uplo, n, a, lda,
                                         vl, vu, il, iu, abstol,
                                         m, w, z, ldz,
@@ -62,14 +63,14 @@ macro_rules! impl_sy_evx (
     ($N: ty, $syevx: path) => (
         impl Tsyheevx for $N {
             #[inline]
-            fn syheevx(jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
+            fn syheevx(layout: Layout, jobz: u8, range: u8, uplo: u8, n: i32, a: &mut [Self], lda: i32,
                  vl: Self::RealField, vu: Self::RealField, il: i32, iu: i32,  abstol: Self::RealField,
                  m: &mut i32, w: &mut [Self::RealField], z: &mut [Self], ldz: i32,
                  work: &mut [Self], lwork: i32, _rwork: &mut [Self::RealField],  //Not used for real-symmetric routines
                  iwork: &mut [i32], ifail: &mut [i32]) -> i32 {
                     let info: i32 =
                         unsafe {
-                                $syevx( Layout::RowMajor,
+                                $syevx( layout,
                                         jobz, range, uplo, n, a, lda,
                                         vl, vu, il, iu, abstol,
                                         m, w, z, ldz,
