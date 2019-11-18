@@ -12,7 +12,7 @@ pub trait Tgeqrf: ComplexField{
              a: &mut [Self],
              lda: i32,
              tau: &mut [Self]) -> i32;
-    fn orunqr(layout: Layout,
+    fn orungqr(layout: Layout,
                 m: i32,
                 n: i32,
                 k: i32,
@@ -36,7 +36,7 @@ macro_rules! impl_tgeqrf(
                     unsafe{$tgeqrf(layout, m, n, a, lda, tau)}
             }
 
-            fn orunqr(
+            fn orungqr(
                 layout: Layout,
                 m: i32,
                 n: i32,
