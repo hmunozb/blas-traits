@@ -11,13 +11,16 @@ pub use asum::RTasum;
 pub use herk::Therk;
 pub use gemm::Tgemm;
 pub use syrk::Tsyrk;
+pub use lapack_traits::Tgeqrf;
 pub use lapack_traits::Tgesv;
 pub use lapack_traits::Tsyheevx;
 
-pub trait BlasScalar: ITamax + RTasum + Therk + Tgemm + Tsyrk + Tgesv + Tsyheevx { }
+pub trait BlasScalar: ITamax + RTasum + Therk + Tgemm + Tsyrk
+        + Tgeqrf +Tgesv + Tsyheevx { }
 
 impl<T> BlasScalar for T
-where T: ITamax + RTasum + Therk + Tgemm + Tsyrk + Tgesv + Tsyheevx { }
+where T: ITamax + RTasum + Therk + Tgemm + Tsyrk
+        + Tgeqrf + Tgesv + Tsyheevx { }
 
 #[cfg(test)]
 mod tests {
