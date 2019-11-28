@@ -1,3 +1,7 @@
+extern crate num_complex;
+pub use num_complex::Complex32 as c32;
+pub use num_complex::Complex64 as c64;
+
 mod amax;
 mod asum;
 mod gemm;
@@ -18,9 +22,15 @@ pub use lapack_traits::Tsyheevx;
 pub trait BlasScalar: ITamax + RTasum + Therk + Tgemm + Tsyrk
         + Tgeqrf +Tgesv + Tsyheevx { }
 
-impl<T> BlasScalar for T
-where T: ITamax + RTasum + Therk + Tgemm + Tsyrk
-        + Tgeqrf + Tgesv + Tsyheevx { }
+impl BlasScalar for f32{}
+impl BlasScalar for f64{}
+impl BlasScalar for num_complex::Complex<f32>{}
+impl BlasScalar for num_complex::Complex<f64>{}
+
+
+//impl<T> BlasScalar for T
+//where T: ITamax + RTasum + Therk + Tgemm + Tsyrk
+//        + Tgeqrf + Tgesv + Tsyheevx { }
 
 #[cfg(test)]
 mod tests {
