@@ -1,5 +1,4 @@
-use alga::general::ComplexField;
-use cblas::{sasum, dasum, scasum, dzasum};
+use crate::ComplexField;
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
@@ -18,7 +17,7 @@ macro_rules! impl_rtasum (
     )
 );
 
-impl_rtasum!(f32, sasum);
-impl_rtasum!(f64, dasum);
-impl_rtasum!(c32, scasum);
-impl_rtasum!(c64, dzasum);
+impl_rtasum!(f32, cblas::sasum);
+impl_rtasum!(f64, cblas::dasum);
+impl_rtasum!(c32, cblas::scasum);
+impl_rtasum!(c64, cblas::dzasum);

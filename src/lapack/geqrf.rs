@@ -1,4 +1,4 @@
-use alga::general::ComplexField;
+use crate::ComplexField;
 use lapacke::{Layout,
               sgeqrf, dgeqrf, cgeqrf, zgeqrf,
               sorgqr, dorgqr, cungqr, zungqr};
@@ -12,13 +12,14 @@ pub trait Tgeqrf: ComplexField{
              a: &mut [Self],
              lda: i32,
              tau: &mut [Self]) -> i32;
-    fn orungqr(layout: Layout,
-                m: i32,
-                n: i32,
-                k: i32,
-                a: &mut [Self],
-                lda: i32,
-                tau: &[Self]) -> i32;
+
+    fn ungqr(layout: Layout,
+             m: i32,
+             n: i32,
+             k: i32,
+             a: &mut [Self],
+             lda: i32,
+             tau: &[Self]) -> i32;
 }
 
 macro_rules! impl_tgeqrf(
@@ -36,7 +37,7 @@ macro_rules! impl_tgeqrf(
                     unsafe{$tgeqrf(layout, m, n, a, lda, tau)}
             }
 
-            fn orungqr(
+            fn ungqr(
                 layout: Layout,
                 m: i32,
                 n: i32,

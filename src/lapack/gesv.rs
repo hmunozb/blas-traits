@@ -1,4 +1,4 @@
-use alga::general::ComplexField;
+use crate::ComplexField;
 use lapacke::{Layout, sgesv, dgesv, cgesv, zgesv};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;

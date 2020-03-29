@@ -1,8 +1,8 @@
-use alga::general::ComplexField;
+use crate::ComplexField;
 use cblas::{Layout, Part, Transpose, cherk, zherk};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
-use crate::Tsyrk;
+use crate::blas::syrk::Tsyrk;
 
 pub trait Therk : ComplexField + Tsyrk{
     /// Hermitian rank k update
@@ -40,7 +40,8 @@ macro_rules! impl_therk_real{
                 ldc: i32
             )
             {
-                let real_trans = if let Transpose::Conjugate = trans { Transpose::Ordinary } else { trans };
+                let real_trans = if let Transpose::Conjugate = trans { Transpose::Ordinary }
+                                 else { trans };
                 <$N>::syrk(layout, uplo, real_trans, n, k, alpha, a, lda, beta, c, ldc)
             }
         }

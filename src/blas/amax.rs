@@ -1,5 +1,4 @@
-use alga::general::ComplexField;
-use cblas::{isamax, idamax, icamax, izamax};
+use crate::ComplexField;
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
@@ -17,7 +16,7 @@ macro_rules! impl_itamax(
     )
 );
 
-impl_itamax!(f32, isamax);
-impl_itamax!(f64, idamax);
-impl_itamax!(c32, icamax);
-impl_itamax!(c64, izamax);
+impl_itamax!(f32, cblas::isamax);
+impl_itamax!(f64, cblas::idamax);
+impl_itamax!(c32, cblas::icamax);
+impl_itamax!(c64, cblas::izamax);

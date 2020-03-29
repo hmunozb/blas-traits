@@ -1,4 +1,4 @@
-use alga::general::ComplexField;
+use crate::ComplexField;
 use cblas::{Layout, Transpose, sgemm, dgemm, cgemm, zgemm};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
