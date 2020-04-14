@@ -4,7 +4,7 @@ use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tsyrk : ComplexField{
-    fn syrk(layout: Layout,
+    unsafe fn syrk(layout: Layout,
             uplo: Part,
             trans: Transpose,
             n: i32,
@@ -21,7 +21,7 @@ pub trait Tsyrk : ComplexField{
 macro_rules! impl_tsyrk{
     ($N: ty, $tsyrk: path) => (
         impl Tsyrk for $N{
-            fn syrk(
+            unsafe fn syrk(
                 layout: Layout,
                 uplo: Part,
                 trans: Transpose,
@@ -35,9 +35,7 @@ macro_rules! impl_tsyrk{
                 ldc: i32
             )
             {
-                unsafe{
-                     $tsyrk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
-                }
+                $tsyrk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
             }
         }
     )

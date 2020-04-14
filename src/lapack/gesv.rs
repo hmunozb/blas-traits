@@ -4,7 +4,7 @@ use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tgesv : ComplexField{
-    fn gesv(layout: Layout,
+    unsafe fn gesv(layout: Layout,
             n: i32,
             nrhs: i32,
             a: &mut [Self],
@@ -18,7 +18,7 @@ macro_rules! impl_tgesv(
     ($N: ty, $tgesv: path) => (
         impl Tgesv for $N{
             #[inline]
-            fn gesv(
+            unsafe fn gesv(
                 layout: Layout,
                 n: i32,
                 nrhs: i32,
@@ -28,7 +28,7 @@ macro_rules! impl_tgesv(
                 b: &mut [Self],
                 ldb: i32,) -> i32
             {
-                unsafe{$tgesv(layout, n, nrhs, a, lda, ipiv, b, ldb)}
+                $tgesv(layout, n, nrhs, a, lda, ipiv, b, ldb)
             }
         }
     )

@@ -6,14 +6,14 @@ use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tgeqrf: ComplexField{
-    fn geqrf(layout: Layout,
+    unsafe fn geqrf(layout: Layout,
              m: i32,
              n: i32,
              a: &mut [Self],
              lda: i32,
              tau: &mut [Self]) -> i32;
 
-    fn ungqr(layout: Layout,
+    unsafe fn ungqr(layout: Layout,
              m: i32,
              n: i32,
              k: i32,
@@ -26,7 +26,7 @@ macro_rules! impl_tgeqrf(
 ($N: ty, $tgeqrf: path, $torungqr: path) => (
         impl Tgeqrf for $N{
             #[inline]
-            fn geqrf(
+            unsafe fn geqrf(
                 layout: Layout,
                 m: i32,
                 n: i32,
@@ -34,10 +34,10 @@ macro_rules! impl_tgeqrf(
                 lda: i32,
                 tau: &mut [Self]) -> i32
             {
-                    unsafe{$tgeqrf(layout, m, n, a, lda, tau)}
+                    $tgeqrf(layout, m, n, a, lda, tau)
             }
 
-            fn ungqr(
+            unsafe fn ungqr(
                 layout: Layout,
                 m: i32,
                 n: i32,
@@ -46,7 +46,7 @@ macro_rules! impl_tgeqrf(
                 lda: i32,
                 tau: &[Self]) -> i32
             {
-                    unsafe{$torungqr(layout, m, n, k, a, lda, tau)}
+                    $torungqr(layout, m, n, k, a, lda, tau)
             }
         }
     )

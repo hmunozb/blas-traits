@@ -8,7 +8,7 @@ pub trait Therk : ComplexField + Tsyrk{
     /// Hermitian rank k update
     /// For real scalars, herk casts Transpose::Conjugate into Transpose::Ordinary and is
     /// completely equivalent to syrk
-    fn herk(layout: Layout,
+    unsafe fn herk(layout: Layout,
             uplo: Part,
             trans: Transpose,
             n: i32,
@@ -26,7 +26,7 @@ macro_rules! impl_therk_real{
     ($N: ty) => (
         impl Therk for $N{
             #[inline]
-            fn herk(
+            unsafe fn herk(
                 layout: Layout,
                 uplo: Part,
                 trans: Transpose,
@@ -52,7 +52,7 @@ macro_rules! impl_therk_complex{
     ($N: ty, $therk: path) => (
         impl Therk for $N{
             #[inline]
-            fn herk(
+            unsafe fn herk(
                 layout: Layout,
                 uplo: Part,
                 trans: Transpose,
@@ -66,7 +66,7 @@ macro_rules! impl_therk_complex{
                 ldc: i32
             )
             {
-                unsafe{ $therk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc) }
+                $therk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
             }
         }
     )

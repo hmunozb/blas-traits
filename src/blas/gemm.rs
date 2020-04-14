@@ -4,7 +4,7 @@ use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tgemm : ComplexField{
-    fn gemm(
+    unsafe fn gemm(
         layout: Layout,
         transa: Transpose,
         transb: Transpose,
@@ -26,7 +26,7 @@ macro_rules! impl_tgemm {
     ($N: ty, $tgemm: path) => (
         impl Tgemm for $N{
             #[inline]
-            fn gemm(
+            unsafe fn gemm(
                 layout: Layout,
                 transa: Transpose,
                 transb: Transpose,
@@ -42,10 +42,8 @@ macro_rules! impl_tgemm {
                 c: &mut [Self],
                 ldc: i32,
             ){
-                unsafe{
-                    $tgemm(layout, transa, transb, m, n, k, alpha,
-                            a, lda, b, ldb, beta, c ,ldc);
-                }
+                $tgemm(layout, transa, transb, m, n, k, alpha,
+                        a, lda, b, ldb, beta, c ,ldc);
             }
         }
     )

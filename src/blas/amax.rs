@@ -3,14 +3,14 @@ use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait ITamax: ComplexField{
-    fn amax(n: i32, x: &[Self], incx: i32) -> i32;
+    unsafe fn amax(n: i32, x: &[Self], incx: i32) -> i32;
 }
 
 macro_rules! impl_itamax(
     ($N: ty, $itamax: path) => (
         impl ITamax for $N{
-            fn amax(n: i32, x: &[Self], incx: i32) -> i32{
-                unsafe{ $itamax(n, x, incx) }
+            unsafe fn amax(n: i32, x: &[Self], incx: i32) -> i32{
+                $itamax(n, x, incx)
             }
         }
     )
