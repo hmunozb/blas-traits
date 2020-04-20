@@ -1,6 +1,7 @@
 mod geqrf;
 mod gesv;
 mod heevx;
+mod heevr;
 
 pub use gesv::Tgesv;
 pub use heevx::Theevx;

@@ -1,6 +1,12 @@
 //! Generic real/complex scalar trait wrappers for BLAS and LAPACK routines
 
+
+#[cfg(not(feature = "simba"))]
 pub use alga::general::ComplexField as ComplexField;
+
+#[cfg(feature = "simba")]
+pub use simba::scalar::ComplexField as ComplexField;
+
 pub use cblas::Layout as Layout;
 pub use cblas::Transpose as Transpose;
 
