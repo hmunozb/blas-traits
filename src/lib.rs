@@ -2,13 +2,13 @@
 
 
 #[cfg(not(feature = "simba"))]
-pub use alga::general::ComplexField as ComplexField;
+pub use alga::general::{RealField, ComplexField};
 #[cfg(not(feature = "simba"))]
 pub use alga::general::{SubsetOf, SupersetOf};
 
 
 #[cfg(feature = "simba")]
-pub use simba::scalar::ComplexField as ComplexField;
+pub use simba::scalar::{RealField, ComplexField};
 #[cfg(feature = "simba")]
 pub use simba::scalar::{SupersetOf, SubsetOf};
 
