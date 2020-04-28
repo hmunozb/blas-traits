@@ -3,9 +3,14 @@
 
 #[cfg(not(feature = "simba"))]
 pub use alga::general::ComplexField as ComplexField;
+#[cfg(not(feature = "simba"))]
+pub use alga::general::{SubsetOf, SupersetOf};
+
 
 #[cfg(feature = "simba")]
 pub use simba::scalar::ComplexField as ComplexField;
+#[cfg(feature = "simba")]
+pub use simba::scalar::{SupersetOf, SubsetOf};
 
 pub use cblas::Layout as Layout;
 pub use cblas::Transpose as Transpose;
