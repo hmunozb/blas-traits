@@ -1,6 +1,6 @@
 [package]
 name = "lapack-traits"
-version = "0.2.3"
+version = "0.3.0"
 authors = ["Humberto Munoz Bauza <humberto.munozb@gmail.com>"]
 edition = "2018"
 
@@ -13,12 +13,10 @@ repository = "https://github.com/hmunozb/lapack-traits/"
 license = "MIT"
 
 [dependencies]
-#alga = {version="0.9"}
-cblas = "0.2"
-lapacke = "0.2.0"
-num-complex = "0.2.3"
-#simba = {version="0.1", optional=true}
+cblas = "0.3"
+lapacke = "0.3"
+num-complex = "0.3"
 
 [dev-dependencies]
-openblas-src = { version="0.7.0", default-features=false, features=["system"] }
+openblas-src = { version="0.10", default-features=false, features=["system"] }
 lapacke-sys = "0.1.4"
