@@ -1,9 +1,9 @@
-use crate::ComplexField;
+use crate::Scalar;
 use lapacke::{Layout, sgesv, dgesv, cgesv, zgesv};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait Tgesv : ComplexField{
+pub trait Tgesv : Scalar {
     unsafe fn gesv(layout: Layout,
             n: i32,
             nrhs: i32,

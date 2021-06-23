@@ -1,9 +1,9 @@
-use crate::ComplexField;
+use crate::Scalar;
 use cblas::{Layout, Part, Transpose, ssyrk, dsyrk, csyrk, zsyrk};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait Tsyrk : ComplexField{
+pub trait Tsyrk : Scalar {
     unsafe fn syrk(layout: Layout,
             uplo: Part,
             trans: Transpose,

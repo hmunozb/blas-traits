@@ -1,16 +1,36 @@
 //! Generic real/complex scalar trait wrappers for BLAS and LAPACK routines
 
+pub trait Scalar : Copy{
+    type Real;
+}
 
-#[cfg(not(feature = "simba"))]
-pub use alga::general::{RealField, ComplexField};
-#[cfg(not(feature = "simba"))]
-pub use alga::general::{SubsetOf, SupersetOf};
+impl Scalar for f32{
+    type Real = f32;
+}
+
+impl Scalar for f64{
+    type Real = f64;
+}
+
+impl Scalar for c32{
+    type Real = f32;
+}
+
+impl Scalar for c64{
+    type Real = f64;
+}
 
 
-#[cfg(feature = "simba")]
-pub use simba::scalar::{RealField, ComplexField};
-#[cfg(feature = "simba")]
-pub use simba::scalar::{SupersetOf, SubsetOf};
+//#[cfg(not(feature = "simba"))]
+//pub use alga::general::{RealField, ComplexField};
+//#[cfg(not(feature = "simba"))]
+//pub use alga::general::{SubsetOf, SupersetOf};
+
+
+//#[cfg(feature = "simba")]
+//pub use simba::scalar::{RealField, ComplexField};
+//#[cfg(feature = "simba")]
+//pub use simba::scalar::{SupersetOf, SubsetOf};
 
 pub use cblas::Layout as Layout;
 pub use cblas::Transpose as Transpose;

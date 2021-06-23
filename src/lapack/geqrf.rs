@@ -1,11 +1,11 @@
-use crate::ComplexField;
+use crate::Scalar;
 use lapacke::{Layout,
               sgeqrf, dgeqrf, cgeqrf, zgeqrf,
               sorgqr, dorgqr, cungqr, zungqr};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait Tgeqrf: ComplexField{
+pub trait Tgeqrf: Scalar {
     unsafe fn geqrf(layout: Layout,
              m: i32,
              n: i32,

@@ -1,24 +1,24 @@
-use crate::ComplexField;
+use crate::Scalar;
 use cblas::{Layout, Part, Transpose, cherk, zherk};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 use crate::blas::syrk::Tsyrk;
 
-pub trait Therk : ComplexField + Tsyrk{
+pub trait Therk : Scalar + Tsyrk{
     /// Hermitian rank k update
     /// For real scalars, herk casts Transpose::Conjugate into Transpose::Ordinary and is
     /// completely equivalent to syrk
     unsafe fn herk(layout: Layout,
-            uplo: Part,
-            trans: Transpose,
-            n: i32,
-            k: i32,
-            alpha: Self::RealField,
-            a: &[Self],
-            lda: i32,
-            beta: Self::RealField,
-            c: &mut [Self],
-            ldc: i32,
+                   uplo: Part,
+                   trans: Transpose,
+                   n: i32,
+                   k: i32,
+                   alpha: Self::Real,
+                   a: &[Self],
+                   lda: i32,
+                   beta: Self::Real,
+                   c: &mut [Self],
+                   ldc: i32,
     );
 }
 
@@ -32,10 +32,10 @@ macro_rules! impl_therk_real{
                 trans: Transpose,
                 n: i32,
                 k: i32,
-                alpha: Self::RealField,
+                alpha: Self::Real,
                 a: &[Self],
                 lda: i32,
-                beta: Self::RealField,
+                beta: Self::Real,
                 c: &mut [Self],
                 ldc: i32
             )
@@ -58,10 +58,10 @@ macro_rules! impl_therk_complex{
                 trans: Transpose,
                 n: i32,
                 k: i32,
-                alpha: Self::RealField,
+                alpha: Self::Real,
                 a: &[Self],
                 lda: i32,
-                beta: Self::RealField,
+                beta: Self::Real,
                 c: &mut [Self],
                 ldc: i32
             )

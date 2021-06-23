@@ -1,9 +1,9 @@
-use crate::ComplexField;
+use crate::Scalar;
 use cblas::{Layout, Transpose, sgemm, dgemm, cgemm, zgemm};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait Tgemm : ComplexField{
+pub trait Tgemm : Scalar {
     unsafe fn gemm(
         layout: Layout,
         transa: Transpose,

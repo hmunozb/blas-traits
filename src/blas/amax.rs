@@ -1,8 +1,8 @@
-use crate::ComplexField;
+use crate::Scalar;
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
-pub trait ITamax: ComplexField{
+pub trait ITamax: Scalar {
     unsafe fn amax(n: i32, x: &[Self], incx: i32) -> i32;
 }
 
