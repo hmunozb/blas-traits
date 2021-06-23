@@ -26,11 +26,11 @@ impl Scalar for c64{
 //#[cfg(not(feature = "simba"))]
 //pub use alga::general::{SubsetOf, SupersetOf};
 
+pub mod simba_feat;
 
-//#[cfg(feature = "simba")]
-//pub use simba::scalar::{RealField, ComplexField};
-//#[cfg(feature = "simba")]
-//pub use simba::scalar::{SupersetOf, SubsetOf};
+#[cfg(feature = "simba")]
+pub use simba_feat::LComplexField;
+
 
 pub use cblas::Layout as Layout;
 pub use cblas::Transpose as Transpose;
