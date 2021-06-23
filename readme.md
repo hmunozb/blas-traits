@@ -9,6 +9,14 @@ Currently implements a small subset of BLAS and LAPACK
 routines, but more are being added over time. 
 Contributions for any missing routines are welcome.
 
+## Traits
+
+Access BLAS and LAPACK methods through the BlasScalar and LapackScalar traits, 
+respectively. Enabling simba provides access to the LComplexField trait, 
+a convenient unifying trait for the (f32, f64, c32, c64) types that also derives from 
+simba::scalar::ComplexField.
+
+
 ## Naming and behavior conventions
 
 Almost all simple routines with uniform patterns over all types
