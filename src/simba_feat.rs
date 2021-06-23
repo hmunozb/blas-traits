@@ -2,14 +2,14 @@
 
 use crate::LapackScalar;
 
-use simba::scalar::ComplexField as ComplexField;
+use simba::scalar::ComplexField;
 
-pub trait LComplexField: ComplexField<RealField=Self::Real> + LapackScalar
+pub trait LComplexField: ComplexField + LapackScalar<Real=Self::RealField>
 {
 
 }
 
 impl<T> LComplexField for T where
-T: LapackScalar + ComplexField<RealField=Self::Real>{
+T: ComplexField + LapackScalar<Real=Self::RealField>{
 
 }
