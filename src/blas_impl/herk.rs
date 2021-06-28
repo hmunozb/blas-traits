@@ -1,16 +1,16 @@
 use crate::Scalar;
-use cblas::{Layout, Part, Transpose, cherk, zherk};
+use blas::{cherk, zherk};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
-use crate::blas::syrk::Tsyrk;
+use crate::blas_impl::syrk::Tsyrk;
 
 pub trait Therk : Scalar + Tsyrk{
     /// Hermitian rank k update
     /// For real scalars, herk casts Transpose::Conjugate into Transpose::Ordinary and is
     /// completely equivalent to syrk
-    unsafe fn herk(layout: Layout,
-                   uplo: Part,
-                   trans: Transpose,
+    unsafe fn herk(
+                   uplo: u8,
+                   trans: u8,
                    n: i32,
                    k: i32,
                    alpha: Self::Real,
@@ -27,9 +27,8 @@ macro_rules! impl_therk_real{
         impl Therk for $N{
             #[inline]
             unsafe fn herk(
-                layout: Layout,
-                uplo: Part,
-                trans: Transpose,
+                uplo: u8,
+                trans: u8,
                 n: i32,
                 k: i32,
                 alpha: Self::Real,
@@ -40,9 +39,9 @@ macro_rules! impl_therk_real{
                 ldc: i32
             )
             {
-                let real_trans = if let Transpose::Conjugate = trans { Transpose::Ordinary }
+                let real_trans = if trans == ('C' as u8) || trans == ('c' as u8) { 'T' as u8 }
                                  else { trans };
-                <$N>::syrk(layout, uplo, real_trans, n, k, alpha, a, lda, beta, c, ldc)
+                <$N>::syrk(uplo, real_trans, n, k, alpha, a, lda, beta, c, ldc)
             }
         }
     )
@@ -53,9 +52,8 @@ macro_rules! impl_therk_complex{
         impl Therk for $N{
             #[inline]
             unsafe fn herk(
-                layout: Layout,
-                uplo: Part,
-                trans: Transpose,
+                uplo: u8,
+                trans: u8,
                 n: i32,
                 k: i32,
                 alpha: Self::Real,
@@ -66,7 +64,7 @@ macro_rules! impl_therk_complex{
                 ldc: i32
             )
             {
-                $therk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+                $therk(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
             }
         }
     )

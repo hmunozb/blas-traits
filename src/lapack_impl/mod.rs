@@ -6,7 +6,7 @@ mod heevr;
 pub use gesv::Tgesv;
 pub use heevx::Theevx;
 pub use geqrf::Tgeqrf;
-use crate::blas::BlasScalar;
+use crate::blas_impl::BlasScalar;
 
 pub trait LapackScalar: BlasScalar
   + Tgeqrf +Tgesv + Theevx { }

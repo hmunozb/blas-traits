@@ -16,7 +16,7 @@ macro_rules! impl_taxpy(
     )
 );
 
-impl_taxpy!(f32, cblas::saxpy);
-impl_taxpy!(f64, cblas::daxpy);
-impl_taxpy!(c32, cblas::caxpy);
-impl_taxpy!(c64, cblas::zaxpy);
+impl_taxpy!(f32, blas::saxpy);
+impl_taxpy!(f64, blas::daxpy);
+impl_taxpy!(c32, blas::caxpy);
+impl_taxpy!(c64, blas::zaxpy);

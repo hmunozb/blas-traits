@@ -1,25 +1,30 @@
 use crate::Scalar;
-use lapacke::{Layout,
-              sgeqrf, dgeqrf, cgeqrf, zgeqrf,
+use lapack::{ sgeqrf, dgeqrf, cgeqrf, zgeqrf,
               sorgqr, dorgqr, cungqr, zungqr};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tgeqrf: Scalar {
-    unsafe fn geqrf(layout: Layout,
+    unsafe fn geqrf(
              m: i32,
              n: i32,
              a: &mut [Self],
              lda: i32,
-             tau: &mut [Self]) -> i32;
+             tau: &mut [Self],
+            work: &mut [Self],
+            lwork: i32,
+            info: &mut i32);
 
-    unsafe fn ungqr(layout: Layout,
+    unsafe fn ungqr(
              m: i32,
              n: i32,
              k: i32,
              a: &mut [Self],
              lda: i32,
-             tau: &[Self]) -> i32;
+             tau: &[Self],
+             work: &mut [Self],
+             lwork: i32,
+             info: &mut i32);
 }
 
 macro_rules! impl_tgeqrf(
@@ -27,26 +32,30 @@ macro_rules! impl_tgeqrf(
         impl Tgeqrf for $N{
             #[inline]
             unsafe fn geqrf(
-                layout: Layout,
                 m: i32,
                 n: i32,
                 a: &mut [Self],
                 lda: i32,
-                tau: &mut [Self]) -> i32
-            {
-                    $tgeqrf(layout, m, n, a, lda, tau)
+                tau: &mut [Self],
+                work: &mut [Self],
+                lwork: i32,
+                info: &mut i32
+            ){
+                    $tgeqrf(m, n, a, lda, tau, work, lwork, info)
             }
 
             unsafe fn ungqr(
-                layout: Layout,
                 m: i32,
                 n: i32,
                 k: i32,
                 a: &mut [Self],
                 lda: i32,
-                tau: &[Self]) -> i32
-            {
-                    $torungqr(layout, m, n, k, a, lda, tau)
+                tau: &[Self],
+                work: &mut [Self],
+                lwork: i32,
+                info: &mut i32
+            ){
+                    $torungqr(m, n, k, a, lda, tau, work, lwork, info)
             }
         }
     )

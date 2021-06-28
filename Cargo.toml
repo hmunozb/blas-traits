@@ -13,11 +13,13 @@ repository = "https://github.com/hmunozb/lapack-traits/"
 license = "MIT"
 
 [dependencies]
-cblas = "0.4"
-lapacke = "0.5"
+blas = "0.22.0"
+lapack = "0.19"
 num-complex = "0.4"
 simba = { version="0.5", optional=true }
 
 [dev-dependencies]
-openblas-src = { version="0.10", default-features=false, features=["system"] }
-lapacke-sys = "0.1.4"
+blas-sys = "0.7.1"
+lapack-sys = "0.14.0"
+#openblas-src = { version="0.10", default-features=false, features=["system"] }
+#lapacke-sys = "0.1.4"

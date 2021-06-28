@@ -32,23 +32,24 @@ pub mod simba_feat;
 pub use simba_feat::LComplexField;
 
 
-pub use cblas::Layout as Layout;
-pub use cblas::Transpose as Transpose;
+//pub use cblas::Layout as Layout;
+//pub use cblas::Transpose as Transpose;
 
 pub use num_complex::Complex32 as c32;
 pub use num_complex::Complex64 as c64;
 
 
-pub mod blas;
-pub mod lapack;
+pub mod blas_impl;
+pub mod lapack_impl;
 
-pub use blas::*;
-pub use lapack::*;
+pub use blas_impl::*;
+pub use lapack_impl::*;
 
 #[cfg(test)]
 mod tests {
     #[allow(unused_imports)]
-    use openblas_src;
+    use lapack_sys;
+    use blas_sys;
 
     #[test]
     fn link() {

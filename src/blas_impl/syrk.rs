@@ -1,12 +1,12 @@
 use crate::Scalar;
-use cblas::{Layout, Part, Transpose, ssyrk, dsyrk, csyrk, zsyrk};
+use blas::{ssyrk, dsyrk, csyrk, zsyrk};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tsyrk : Scalar {
-    unsafe fn syrk(layout: Layout,
-            uplo: Part,
-            trans: Transpose,
+    unsafe fn syrk(
+            uplo: u8,
+            trans: u8,
             n: i32,
             k: i32,
             alpha: Self,
@@ -22,9 +22,8 @@ macro_rules! impl_tsyrk{
     ($N: ty, $tsyrk: path) => (
         impl Tsyrk for $N{
             unsafe fn syrk(
-                layout: Layout,
-                uplo: Part,
-                trans: Transpose,
+                uplo: u8,
+                trans: u8,
                 n: i32,
                 k: i32,
                 alpha: Self,
@@ -35,7 +34,7 @@ macro_rules! impl_tsyrk{
                 ldc: i32
             )
             {
-                $tsyrk(layout, uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
+                $tsyrk(uplo, trans, n, k, alpha, a, lda, beta, c, ldc)
             }
         }
     )

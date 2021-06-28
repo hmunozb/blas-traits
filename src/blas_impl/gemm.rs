@@ -1,13 +1,12 @@
 use crate::Scalar;
-use cblas::{Layout, Transpose, sgemm, dgemm, cgemm, zgemm};
+use blas::{sgemm, dgemm, cgemm, zgemm};
 use num_complex::Complex32 as c32;
 use num_complex::Complex64 as c64;
 
 pub trait Tgemm : Scalar {
     unsafe fn gemm(
-        layout: Layout,
-        transa: Transpose,
-        transb: Transpose,
+        transa: u8,
+        transb: u8,
         m: i32,
         n: i32,
         k: i32,
@@ -27,9 +26,8 @@ macro_rules! impl_tgemm {
         impl Tgemm for $N{
             #[inline]
             unsafe fn gemm(
-                layout: Layout,
-                transa: Transpose,
-                transb: Transpose,
+                transa: u8,
+                transb: u8,
                 m: i32,
                 n: i32,
                 k: i32,
@@ -42,7 +40,7 @@ macro_rules! impl_tgemm {
                 c: &mut [Self],
                 ldc: i32,
             ){
-                $tgemm(layout, transa, transb, m, n, k, alpha,
+                $tgemm(transa, transb, m, n, k, alpha,
                         a, lda, b, ldb, beta, c ,ldc);
             }
         }
